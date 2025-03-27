@@ -58,16 +58,17 @@
                     let adviser = users[i].getElementsByTagName("adviser")[0].textContent;
                     let school_year = users[i].getElementsByTagName("school_year")[0].textContent;
 
-                    output += `
-                        <div class="card">
-                            <img src="${picture}" alt="Student Photo" onerror="this.onerror=null; this.src='https://via.placeholder.com/50';">
-                            <p><strong>Name:</strong> ${name}</p>
-                            <p><strong>Course:</strong> ${course}</p>
-                            <p><strong>Year Level / Section:</strong> ${year}</p>
-                            <p><strong>Adviser:</strong> ${adviser}</p>
-                            <p><strong>School Year:</strong> ${school_year}</p>
-                        </div>
-                    `;
+        output += `
+        <div class="card">
+        <img src="${picture}" alt="Student Photo" onerror="this.onerror=null; this.src='https://via.placeholder.com/50';">
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Course:</strong> ${course}</p>
+        <p><strong>Year Level / Section:</strong> ${year}</p>
+        <p><strong>Adviser:</strong> ${adviser}</p>
+        <p><strong>School Year:</strong> ${school_year}</p>
+    </div>
+`;
+
                 }
 
                 document.getElementById("userList").innerHTML = output;
