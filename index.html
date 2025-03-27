@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graduate Students</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .card {
+            border: 3px solid black;
+            padding: 10px;
+            margin: 10px;
+            width: 250px;
+            text-align: left;
+        }
+        .card img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <h1>ABC Colleges Library Users</h1>
+    <div class="container" id="userList"></div>
+
+    <script>
+        fetch('students.xml')
+            .then(response => response.text())
+            .then(str => {
+                let parser = new DOMParser();
+                let xml = parser.parseFromString(str, "text/xml");
+                let users = xml.getElementsByTagName("user");
+                let output = "";
+
+                for (let i = 0; i < users.length; i++) {
+                    let picture = users[i].getElementsByTagName("picture")[0].textContent;
+                    let name = users[i].getElementsByTagName("name")[0].textContent;
+                    let course = users[i].getElementsByTagName("course")[0].textContent;
+                    let year = users[i].getElementsByTagName("year_level")[0].textContent;
+                    let adviser = users[i].getElementsByTagName("adviser")[0].textContent;
+                    let school_year = users[i].getElementsByTagName("school_year")[0].textContent;
+
+                    output += `
+                        <div class="card">
+                            <img src="${picture}" alt="Student Photo" onerror="this.onerror=null; this.src='https://via.placeholder.com/50';">
+                            <p><strong>Name:</strong> ${name}</p>
+                            <p><strong>Course:</strong> ${course}</p>
+                            <p><strong>Year Level / Section:</strong> ${year}</p>
+                            <p><strong>Adviser:</strong> ${adviser}</p>
+                            <p><strong>School Year:</strong> ${school_year}</p>
+                        </div>
+                    `;
+                }
+
+                document.getElementById("userList").innerHTML = output;
+            })
+            .catch(error => console.error("Error loading XML:", error));
+    </script>
+</body>
+</html>
